@@ -13,10 +13,12 @@ class UserController extends Controller
 {
     
     public function index(){
-    	$status = StatusMessage::user(Auth::user()->id)->get();
+    	// print_r(Auth::user()->id);
+    	// exit;
+    	$status = StatusMessage::User(Auth::user()->id)->get();
     	$followers = Follower::user(Auth::user()->id)->count();
     	$following = Follower::follower(Auth::user()->id)->count();
-    	return view('home',['status'=>$status]);
+    	return view('home',['status'=>$status,'followers'=>$followers,'following'=>$following]);
     }
 
     public function getProfile($user){

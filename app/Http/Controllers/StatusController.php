@@ -8,7 +8,5 @@ use App\Http\Requests;
 
 class StatusController extends Controller
 {
-    public function scopeUser($query, $id){
-        return $query->whereUserId($id);
-    }
+    
 }

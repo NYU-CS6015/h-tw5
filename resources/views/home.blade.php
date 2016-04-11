@@ -24,18 +24,26 @@ $('#submit').click(function()
                 Hi {{Auth::user()->name}}
             </div>
             <div class ="panel panel-default">
-                Followers: {{}}
+                Followers: {{$followers}}
+                <br>
+                Following: {{$following}}
             </div>
+
         </div>
         <div class="col-md-10">
             <div class="panel panel-default">
-                <form>
+                <form role='form' name='status' method='POST' action="{{url('/postStatus')}}">
+                    {{ csrf_field() }}
+                    <textarea rows="4" cols="50" name="comment" form="status">Enter text here...</textarea>
+                    <input type="submit"/>
                 </form>
+                
             </div>
             @foreach($status as $message)
             <div class="panel panel-default">
                 {{$message->status}}
             </div>
+            @endforeach
         </div>
     </div>
 </div>
