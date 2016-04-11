@@ -10,6 +10,7 @@ $('#submit').click(function()
         type:'POST',
         data:
         {
+            
             email: email_address,
             message: message
         },           
