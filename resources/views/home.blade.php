@@ -20,7 +20,7 @@ $('#submit').click(function()
 <div class="container">
     <div class="row">
         <div class="col-md-2">
-            <div class="panel panel-default">
+            <div class="panel panel-primary">
                 Hi {{Auth::user()->name}}
             </div>
             <div class ="panel panel-default">
