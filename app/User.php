@@ -23,4 +23,13 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function status(){
+        return $this->hasMany('App\StatusMessage');
+    }
+
+    public function followers(){
+        return $this->hasMany('App\Follower');
+    }
+
 }
