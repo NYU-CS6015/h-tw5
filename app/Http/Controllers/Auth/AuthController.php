@@ -30,7 +30,7 @@ class AuthController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/';
+    protected $redirectTo = '/home';
 
     /**
      * Create a new authentication controller instance.
@@ -40,41 +40,6 @@ class AuthController extends Controller
     public function __construct()
     {
         $this->middleware($this->guestMiddleware(), ['except' => 'logout']);
-    }
-
-    public function getLogin()
-    {
-        return view('auth/login');
-    }
-
-    public function postLogin(Request $request)
-    {
-        $user = $request->input('username');
-        $pw = $request->input('password');
-        $credentials = ['username'=>$request->input('username'), 'password'=>$request->input('password')];
-
-
-        dd(Auth::attempt($credentials, false));
-
-
-        // if ($request->input('user')) {
-        //     if (($user = User::whereUsername($request->input('user'))->first()) != null) {
-        //         Auth::login($user, true);
-        //         //return response()->json($user);
-                 
-        //     }
-        // }
-        
-        return redirect('/login');
-        
-    }
-
-    public function logOut() {
-
-        Auth::logout();
-        //Session::flush();
-        return redirect('/');
-
     }
 
     /**

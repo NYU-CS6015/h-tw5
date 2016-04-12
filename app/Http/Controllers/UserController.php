@@ -31,7 +31,9 @@ class UserController extends Controller
     	$status = StatusMessage::User($thisUser['id'])->get();
     	$followers = Follower::user($thisUser['id'])->count();
     	$following = Follower::follower($thisUser['id'])->count();
-    	$followBool = Follower::IsFollowing($thisUser['id'],Auth::user()->id)->get();
+    	if(Auth::check())
+    		$followBool = Follower::IsFollowing($thisUser['id'],Auth::user()->id)->get();
+    	else $followBool = 0;
     	if (sizeof($followBool) == 1){$isFollowing = true;}
     	else $isFollowing = false;
     	return view('profile',['status'=>$status,'followers'=>$followers,'following'=>$following,'user'=>$thisUser,'isFollowing'=>$isFollowing]);

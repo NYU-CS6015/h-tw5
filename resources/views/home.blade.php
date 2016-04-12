@@ -1,6 +1,21 @@
 @extends('layouts.app')
 
 @section('content')
+<script>
+$('#submit').click(function()
+{
+    $.ajax({
+        url: '/home',
+        type:'POST',
+        data:
+        {   
+            _token: X-CSRF-Token,
+            user_id: $("#user_id").val(),
+            message: $("#message").val()
+        },           
+    });
+});
+</script>
 <div class="container">
     <div class="row">
         <div class="col-md-2">

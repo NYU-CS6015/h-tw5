@@ -21,14 +21,10 @@ Route::get('/home', 'HomeController@index');
 
 Route::get('/{user}','UserController@getProfile');
 
-Route::get('/login','Auth\AuthController@getLogin');
-Route::post('/login','Auth\AuthController@postLogin');
 
-
-Route::group(['middleware' => [Authenticate::class,'web']], function () {
+Route::group(['middleware' => ['web',Authenticate::class]], function () {
 
 	Route::get('/home', 'UserController@index');
-	Route::get('/logout','Auth\AuthController@logOut');
 
 	Route::post('/home','StatusController@postStatus');
 
