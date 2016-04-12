@@ -9,4 +9,5 @@ class StatusMessage extends Model
     public function scopeUser($query, $id){
         return $query->whereUserId($id);
     }
+
 }

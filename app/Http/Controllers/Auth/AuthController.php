@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Illuminate\Http\Request;
+use Auth;
 use App\User;
 use Validator;
 use App\Http\Controllers\Controller;
@@ -40,6 +42,41 @@ class AuthController extends Controller
         $this->middleware($this->guestMiddleware(), ['except' => 'logout']);
     }
 
+    public function getLogin()
+    {
+        return view('auth/login');
+    }
+
+    public function postLogin(Request $request)
+    {
+        $user = $request->input('username');
+        $pw = $request->input('password');
+        $credentials = ['username'=>$request->input('username'), 'password'=>$request->input('password')];
+
+
+        dd(Auth::attempt($credentials, false));
+
+
+        // if ($request->input('user')) {
+        //     if (($user = User::whereUsername($request->input('user'))->first()) != null) {
+        //         Auth::login($user, true);
+        //         //return response()->json($user);
+                 
+        //     }
+        // }
+        
+        return redirect('/login');
+        
+    }
+
+    public function logOut() {
+
+        Auth::logout();
+        //Session::flush();
+        return redirect('/');
+
+    }
+
     /**
      * Get a validator for an incoming registration request.
      *
@@ -50,6 +87,7 @@ class AuthController extends Controller
     {
         return Validator::make($data, [
             'name' => 'required|max:255',
+            'username'=> 'required|max:255|unique:users',
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|min:6|confirmed',
         ]);
@@ -65,6 +103,7 @@ class AuthController extends Controller
     {
         return User::create([
             'name' => $data['name'],
+            'username'=>$data['username'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);

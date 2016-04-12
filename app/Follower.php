@@ -13,4 +13,8 @@ class Follower extends Model
     public function scopeFollower($query,$id){
     	return $query->whereFollower($id);
     }
+
+    public function scopeIsFollowing($query,$id,$user){
+    	return $query->where('user',$id)->where('follower',$user);
+    }
 }

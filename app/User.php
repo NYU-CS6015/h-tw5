@@ -12,7 +12,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password','username',
     ];
 
     /**
@@ -24,6 +24,10 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    public function setPasswordAttribute($password){
+        $this->attributes['password'] = bcrypt($password);
+    }
+
     public function status(){
         return $this->hasMany('App\StatusMessage');
     }
@@ -31,5 +35,4 @@ class User extends Authenticatable
     public function followers(){
         return $this->hasMany('App\Follower');
     }
-
 }

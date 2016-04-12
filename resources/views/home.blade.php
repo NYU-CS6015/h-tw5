@@ -1,23 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-
-<script>
-$('#submit').click(function()
-{
-    $.ajax({
-        url: send_email.php,
-        type:'POST',
-        data:
-        {
-            
-            email: email_address,
-            message: message
-        },           
-    });
-});
-</script>
-
 <div class="container">
     <div class="row">
         <div class="col-md-2">
@@ -33,9 +16,9 @@ $('#submit').click(function()
         </div>
         <div class="col-md-10">
             <div class="panel panel-default">
-                <form role='form' name='status' method='POST' action="{{url('/postStatus')}}">
-                    {{ csrf_field() }}
-                    <textarea rows="4" cols="50" name="comment" form="status">Enter text here...</textarea>
+                <form role='form' name='status' method='POST' action="{{url('/home')}}">
+                    <input type='hidden' name='user_id' id='user_id' value='{{Auth::user()->id}}'/>
+                    <textarea class="form-control" rows="5" id="message" name='message'></textarea>
                     <input type="submit"/>
                 </form>
                 

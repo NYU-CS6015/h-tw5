@@ -22,6 +22,18 @@ class UserController extends Controller
     }
 
     public function getProfile($user){
-
+    	$profile = User::where('username', $user)->get();
+    	if (sizeof($profile) == 0){
+    		abort(404,'Does not exist');
+    	}
+    	$thisUser = $profile[0]->toArray();
+    	// print_r($thisUser);
+    	$status = StatusMessage::User($thisUser['id'])->get();
+    	$followers = Follower::user($thisUser['id'])->count();
+    	$following = Follower::follower($thisUser['id'])->count();
+    	$followBool = Follower::IsFollowing($thisUser['id'],Auth::user()->id)->get();
+    	if (sizeof($followBool) == 1){$isFollowing = true;}
+    	else $isFollowing = false;
+    	return view('profile',['status'=>$status,'followers'=>$followers,'following'=>$following,'user'=>$thisUser,'isFollowing'=>$isFollowing]);
     }
 }

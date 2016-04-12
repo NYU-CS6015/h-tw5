@@ -1,5 +1,5 @@
 <?php
-
+use App\Http\Middleware\Authenticate;
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -21,8 +21,18 @@ Route::get('/home', 'HomeController@index');
 
 Route::get('/{user}','UserController@getProfile');
 
-Route::group(['middleware' => 'web'], function () {
+Route::get('/login','Auth\AuthController@getLogin');
+Route::post('/login','Auth\AuthController@postLogin');
 
-	Route::get('/', 'UserController@index');
+
+Route::group(['middleware' => [Authenticate::class,'web']], function () {
+
+	Route::get('/home', 'UserController@index');
+	Route::get('/logout','Auth\AuthController@logOut');
+
+	Route::post('/home','StatusController@postStatus');
+
+	Route::post('/follow','FollowerController@follow');
+	Route::post('/unfollow','FollowerController@unfollow');
 
 });
