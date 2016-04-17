@@ -19,10 +19,10 @@ Route::auth();
 
 Route::get('/home', 'HomeController@index');
 
-Route::get('/{user}','UserController@getProfile');
+Route::get('/user/{user}','UserController@getProfile');
 
 
-Route::group(['middleware' => ['web',Authenticate::class]], function () {
+Route::group(['middleware' => Authenticate::class], function () {
 
 	Route::get('/home', 'UserController@index');
 
@@ -30,5 +30,8 @@ Route::group(['middleware' => ['web',Authenticate::class]], function () {
 
 	Route::post('/follow','FollowerController@follow');
 	Route::post('/unfollow','FollowerController@unfollow');
+
+
+
 
 });
