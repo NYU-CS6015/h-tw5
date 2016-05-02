@@ -4,16 +4,11 @@
 <script type="text/javascript">
 $(document).ready(function(){
     $('#submit').click(function(){
-        $.ajax({
-            url: '/home',
-            type:'POST',
-            data:
-            {   
-                'user_id': $("#user_id").val(),
-                'message': $("#message").val()
-            },           
-        });
-    });
+        $.post("ajax_funcs.php", {
+            user_id: user_id,
+            message: message
+        }
+   });     
 });
 
 </script>
